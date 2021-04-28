@@ -12,7 +12,7 @@
 
     <insert id="insert" parameterType="yang.sheng.test.bean.TestBean">
         INSERT INTO PRIVATE_TEST(ID, TESTNAME)
-        VALUES(#{id}, #{name})
+        VALUES(#{id}, #{testName})
     </insert>
 
     <select id="selectAll" resultMap="result">
