@@ -11,4 +11,7 @@ public class TestBean {
 
     @ApiModelProperty("名称")
     private String testName;
+
+    @ApiModelProperty("内容")
+    private String content;
 }

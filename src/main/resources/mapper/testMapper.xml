@@ -4,20 +4,65 @@
     <resultMap id="result" type="yang.sheng.test.bean.TestBean">
         <result column="ID" jdbcType="BIGINT" property="id"/>
         <result column="TESTNAME" jdbcType="VARCHAR" property="testName"/>
+        <result column="CONTENT" jdbcType="CLOB" property="content"/>
     </resultMap>
 
     <sql id="column">
-        ID, TESTNAME
+        ID, TESTNAME, CONTENT
     </sql>
 
     <insert id="insert" parameterType="yang.sheng.test.bean.TestBean">
-        INSERT INTO PRIVATE_TEST(ID, TESTNAME)
-        VALUES(#{id}, #{testName})
+        INSERT INTO PRIVATE_TEST(
+        <include refid="column"></include>
+        )
+        VALUES(#{id}, #{testName}, #{content})
     </insert>
 
     <select id="selectAll" resultMap="result">
         SELECT
         <include refid="column"></include>
         FROM PRIVATE_TEST
+        ORDER BY ID
     </select>
+
+    <select id="select" parameterType="yang.sheng.test.bean.TestBean" resultMap="result">
+        SELECT
+        <include refid="column"></include>
+        FROM PRIVATE_TEST
+        <where>
+            <if test="id != null and testName != ''">
+                AND ID LIKE '%' || #{id} || '%'
+            </if>
+            <if test="testName != null and testName != ''">
+                AND TESTNAME LIKE '%' || #{testName} || '%'
+            </if>
+            <if test="content != null and content != ''">
+                AND CONTENT LIKE '%' || #{content} || '%'
+            </if>
+        </where>
+        ORDER BY ID
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT MAX(ID)
+        FROM PRIVATE_TEST
+    </select>
+
+    <update id="updateById" parameterType="yang.sheng.test.bean.TestBean">
+        UPDATE PRIVATE_TEST
+        <set>
+            <if test="testName != null and testName != ''">
+                TESTNAME = #{testName},
+            </if>
+            <if test="content != null and content != ''">
+                CONTENT = #{content},
+            </if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM PRIVATE_TEST
+        WHERE ID = #{id}
+    </delete>
 </mapper>

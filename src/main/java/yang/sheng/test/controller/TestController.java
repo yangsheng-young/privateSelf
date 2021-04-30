@@ -4,10 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import yang.sheng.test.bean.TestBean;
 import yang.sheng.test.service.TestService;
 
@@ -30,5 +27,23 @@ public class TestController {
     @GetMapping("/selectAll")
     public List<TestBean> selectAll() {
         return testService.selectAll();
+    }
+
+    @ApiOperation("查询数据")
+    @PostMapping("/select")
+    public List<TestBean> select(@RequestBody @ApiParam("查询条件") TestBean testBean) {
+        return testService.select(testBean);
+    }
+
+    @ApiOperation("根据id更新")
+    @PutMapping("/updateById")
+    public void updateById(@RequestBody @ApiParam("修改数据") TestBean testBean) {
+        testService.updateById(testBean);
+    }
+
+    @ApiOperation("根据id删除")
+    @DeleteMapping("/deleteById")
+    public void deleteById(@RequestParam @ApiParam("删除id") Long id) {
+        testService.deleteById(id);
     }
 }
