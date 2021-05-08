@@ -4,7 +4,7 @@
     <resultMap id="result" type="yang.sheng.test.bean.TestBean">
         <result column="ID" jdbcType="BIGINT" property="id"/>
         <result column="TESTNAME" jdbcType="VARCHAR" property="testName"/>
-        <result column="CONTENT" jdbcType="CLOB" property="content"/>
+        <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
     </resultMap>
 
     <sql id="column">
@@ -30,14 +30,11 @@
         <include refid="column"></include>
         FROM PRIVATE_TEST
         <where>
-            <if test="id != null and testName != ''">
-                AND ID LIKE '%' || #{id} || '%'
-            </if>
             <if test="testName != null and testName != ''">
-                AND TESTNAME LIKE '%' || #{testName} || '%'
+                AND TESTNAME LIKE CONCAT('%', #{testName}, '%')
             </if>
             <if test="content != null and content != ''">
-                AND CONTENT LIKE '%' || #{content} || '%'
+                AND CONTENT LIKE CONCAT('%', #{content}, '%')
             </if>
         </where>
         ORDER BY ID

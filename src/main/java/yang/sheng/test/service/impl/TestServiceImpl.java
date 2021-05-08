@@ -17,6 +17,9 @@ public class TestServiceImpl implements TestService {
     @Override
     public void insert(TestBean testBean) {
         Long id = testMapper.selectMaxId();
+        if (id == null) {
+            id = 0L;
+        }
         testBean.setId(id + 1);
         testMapper.insert(testBean);
     }

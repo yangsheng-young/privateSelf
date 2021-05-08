@@ -3,12 +3,16 @@ server:
 
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    username: privateself
-    password: 123456
-    url: jdbc:oracle:thin:@localhost:1521:orcl
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ${mysqlUserName}
+    password: ${mysqlPassword}
+    url: jdbc:mysql://${mysqlHost}:3306/privateSelf?serverTimezone=UTC&useSSL=false
 
 mybatis:
   mapper-locations: classpath:/mapper/**.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mysqlHost: localhost
+mysqlUserName: root
+mysqlPassword: root
