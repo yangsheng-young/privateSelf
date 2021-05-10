@@ -46,4 +46,10 @@ public class TestController {
     public void deleteById(@RequestParam @ApiParam("删除id") Long id) {
         testService.deleteById(id);
     }
+
+    @ApiOperation("rabbitmq插入数据")
+    @PostMapping("/rabbitmqInsert")
+    public void rabbitInsert(@RequestBody @ApiParam("数据") TestBean testBean) {
+        testService.rabbitInsert(testBean);
+    }
 }

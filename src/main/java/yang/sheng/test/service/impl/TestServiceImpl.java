@@ -1,7 +1,10 @@
 package yang.sheng.test.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yang.sheng.config.RabbitmqConfig;
 import yang.sheng.test.bean.TestBean;
 import yang.sheng.test.mapper.TestMapper;
 import yang.sheng.test.service.TestService;
@@ -13,6 +16,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private TestMapper testMapper;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public void insert(TestBean testBean) {
@@ -48,6 +54,15 @@ public class TestServiceImpl implements TestService {
             return;
         }
         testMapper.deleteById(id);
+    }
+
+    /**
+     * rabbitmq生产者
+     * @param testBean
+     */
+    @Override
+    public void rabbitInsert(TestBean testBean) {
+        rabbitTemplate.convertAndSend(RabbitmqConfig.TEST_EXCHANGE, "test.test", JSONObject.toJSONString(testBean));
     }
 
 

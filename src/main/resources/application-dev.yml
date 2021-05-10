@@ -7,6 +7,11 @@ spring:
     username: ${mysqlUserName}
     password: ${mysqlPassword}
     url: jdbc:mysql://${mysqlHost}:3306/privateSelf?serverTimezone=UTC&useSSL=false
+  rabbitmq:
+    host: locahost
+    port: 5672
+    username: guest
+    password: guest
 
 mybatis:
   mapper-locations: classpath:/mapper/**.xml

@@ -15,4 +15,6 @@ public interface TestService {
     void updateById(TestBean testBean);
 
     void deleteById(Long id);
+
+    void rabbitInsert(TestBean testBean);
 }
