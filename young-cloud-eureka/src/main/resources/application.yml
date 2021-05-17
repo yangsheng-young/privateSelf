@@ -1,0 +1,6 @@
+# Spring custom configuration
+spring:
+  profiles:
+    active: dev
+  application:
+    name: cloud-eureka
