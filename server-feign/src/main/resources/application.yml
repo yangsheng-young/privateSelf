@@ -1,8 +1,6 @@
-# 端口号
 server:
   port: 8765
 
-# 配置应用程序名称
 spring:
   application:
     name: server-feign
