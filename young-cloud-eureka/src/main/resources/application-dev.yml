@@ -14,7 +14,7 @@ eureka:
   client:
     # 表明自己不是一个客户端，并且不进行自注册
     register-with-eureka: false
-    fetch-registry: false
+    fetch-registry: false #false 表示自己为注册中心
     # 注册中心的访问地址
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

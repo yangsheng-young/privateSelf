@@ -2,12 +2,11 @@ package com.young.yangshengcore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.web.bind.annotation.RestController;
 
 @EnableEurekaClient
-@RestController
-@SpringBootApplication(scanBasePackages = "com.young")
+@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class},scanBasePackages = "com.young")
 public class YangshengCoreApplication {
 
     public static void main(String[] args) {
